@@ -20,7 +20,8 @@ class AuthController extends Controller
     {
         $user = User::create([
             ...$request->validated(),
-            'password' => Hash::make($request->password)
+            'password' => Hash::make($request->password),
+            'last_username_change' => now()
         ]);
         Mail::to($user)->queue(new WelcomeMail($user->first_name, $user->last_name));
         $token = $user->createToken('auth-token')->plainTextToken;

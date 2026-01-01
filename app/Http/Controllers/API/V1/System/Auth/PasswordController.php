@@ -117,7 +117,7 @@ class PasswordController extends Controller
         if (Cache::has("cooldown:{$key}")) {
             return error('Please wait before resend OTP again', 429);
         }
-        $otp = str_pad(rand(0, 999999), 6, '0', STR_PAD_LEFT);
+        $otp = generateOtp();
         Cache::put($key, [
             'otp' => $otp,
             'attempts' => 0
